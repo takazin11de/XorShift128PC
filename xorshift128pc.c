@@ -15,13 +15,13 @@ static inline uint64_t shuffle_bijection(uint64_t x) {
   uint64_t y = x;
   y *= 0xa09e667fb67ae859;
   y += 0xe3779b972a7fa9d2;
-  y ^= (y >> 5) ^ (y >> 11);
+  y ^= (y >> 5) ^ (y >> 23);
   y *= 0x887293fdd82b4461;
   y += 0x7e0f66af6f833464;
-  y ^= (y >> 17) ^ (y >> 23);
+  y ^= (y >> 11) ^ (y >> 29);
   y *= 0x2eee75778a68a4a9;
   y += 0x4564056854bfb363;
-  y ^= (y >> 29) ^ (y >> 37);
+  y ^= (y >> 17) ^ (y >> 37);
   return y;
 }
 
