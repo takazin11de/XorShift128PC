@@ -34,6 +34,14 @@ static inline uint64_t shuffle_bijection(uint64_t x) {
   return y;
 }
 
+static inline uint64_t shuffle_bijection2(uint64_t x) {
+  return x ^ (x >> 5) ^ (x >> 17) ^ (x >> 31);
+}
+
+static inline uint64_t shuffle_bijection3(uint64_t x) {
+  return x ^ (x >> 7) ^ (x >> 23) ^ (x >> 37);
+}
+
 void XorShift128PCSeed(XorShift128PCS* state, uint64_t seed1, uint64_t seed2) {
   state->state0 = seed1;
   state->state1 = 0x21fb5444bf0a8b14;
@@ -42,7 +50,6 @@ void XorShift128PCSeed(XorShift128PCS* state, uint64_t seed1, uint64_t seed2) {
 
 uint64_t XorShift128PC(XorShift128PCS* state) {
   XorShift128(&state->state0, &state->state1);
-  return shuffle_bijection(state->state0 + 0x5555555555555555) +
-         shuffle_bijection(state->state1 + 0xaaaaaaaaaaaaaaaa) +
+  return shuffle_bijection2(state->state0) + shuffle_bijection3(state->state1) +
          shuffle_bijection(state->state2++);
 }
