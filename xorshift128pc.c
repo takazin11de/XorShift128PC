@@ -42,6 +42,6 @@ void XorShift128PCSeed(XorShift128PCS* state, uint64_t seed1, uint64_t seed2) {
 
 uint64_t XorShift128PC(XorShift128PCS* state) {
   XorShift128(&state->state0, &state->state1);
-  return shuffle_bijection(state->state0 + state->state2 + 0x21fb5444bf0a8b14) +
-         shuffle_bijection(state->state1 + (state->state2++));
+  return shuffle_bijection(state->state0 + 0x21fb5444bf0a8b14) +
+         shuffle_bijection(state->state1) + shuffle_bijection(state->state2++);
 }
